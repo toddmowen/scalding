@@ -343,6 +343,11 @@ trait TypedPipe[+T] extends Serializable {
   def forceToDisk: TypedPipe[T] = onRawSingle(_.forceToDisk)
 
   /**
+    * Rename the current pipe
+    */
+  def name(s: String): TypedPipe[T] = onRawSingle(_.name(s))
+
+  /**
    * This is the default means of grouping all pairs with the same key. Generally this triggers 1 Map/Reduce transition
    */
   def group[K, V](implicit ev: <:<[T, (K, V)], ord: Ordering[K]): Grouped[K, V] =
